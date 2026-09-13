@@ -3286,7 +3286,7 @@ html, body {
                 </li>
                 <li class="contact-item">
                     <div class="contact-icon">📧</div>
-                       <span> <a href="mailto:info@thanmathiexports.com">info@thanmathiexports.com</a> </span>
+                       <span> <a href="mailto:info@thanmathiexports.com" onclick="handleMailClick(event, 'info@thanmathiexports.com')">info@thanmathiexports.com </a> </span>
                 </li>
                 <li class="contact-item">
                     <div class="contact-icon">📱</div>
@@ -3427,6 +3427,20 @@ html, body {
 
  <!-- ========== JAVASCRIPT ========== -->
 <script>
+    // ============ Gmail redirection =================
+    function handleMailClick(event, email) {
+      // Check if device is mobile or tablet
+      const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+      if (!isMobile) {
+        // Prevent default mailto: behavior on PC
+        event.preventDefault();
+    
+        // Open Gmail compose tab in a new browser window
+        const gmailUrl = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(email);
+        window.open(gmailUrl, '_blank');
+      }
+    }
     // ========== NAVBAR SCROLL ==========
     const navbar = document.querySelector('.navbar');
     if (navbar) {
