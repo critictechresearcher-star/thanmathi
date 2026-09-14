@@ -2694,6 +2694,26 @@ html, body {
         color: #555;
         margin: 0 5px;
     }
+
+    /* Single Image Empowerment Layout */
+.empowerment-single-image-wrapper {
+    width: 100%;
+    height: clamp(350px, 50vw, 500px);
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+}
+
+.empowerment-single-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.empowerment-single-image-wrapper:hover .empowerment-single-img {
+    transform: scale(1.05);
+}
     </style>
 </head>
 <body>
@@ -2876,7 +2896,7 @@ html, body {
             </div>
             <div class="timeline-icon">🌿</div>
             <div class="timeline-media">
-                <img src="chatline images/Gemini_Generated_Image_uy5x19uy5x19uy5x.png" alt="Empowering Women">
+                <img src="Imges/1st" alt="Empowering Women">
             </div>
         </div>
 
@@ -3174,16 +3194,11 @@ html, body {
     <!-- ========== EMPOWERMENT SECTION ========== -->
     <section class="section empowerment">
         <div class="empowerment-container">
-            <div class="empowerment-media reveal-left">
-                <div class="empowerment-video-wrapper">
-                    <!-- 📹 VIDEO PATH: Women working video -->
-                    <video class="empowerment-video" autoplay muted loop playsinline poster="final images/leaf.png">
-                        <source src="" type="video/mp4">
-                    </video>
+            <div class="empowerment-media reveal-left active">
+                <div class="empowerment-single-image-wrapper">
+                    <!-- 🖼️ IMAGE PATH: Replace with your preferred single image path or URL -->
+                    <img src="Imges/2nd" alt="Women Empowerment" class="empowerment-single-img">
                 </div>
-                <!-- 🖼️ IMAGE PATHS -->
-                <img src="hero section images/Gemini_Generated_Image_vrc8owvrc8owvrc8.png" alt="Craftsmanship" class="empowerment-img">
-                <img src="hero section images/Gemini_Generated_Image_76acc76acc76acc7.png" alt="Community" class="empowerment-img">
             </div>
             <div class="empowerment-content reveal-right">
                 <div class="section-label">👩‍🌾 Women Empowerment</div>
