@@ -3829,5 +3829,87 @@ html, body {
         });
     }
 </script>
+    <!-- ======== PASTE NEW JAVASCRIPT HERE ======== -->
+    <script>
+        const whatsappNumber = "919942415151"; 
+        
+        const catalogProducts = [
+            { id: 1, category: "Coconut Shells", name: "V-Cut Bird Feeder", price: "₹150.00", description: "Crafted from natural coconut shell with a distinct V-cut opening.", images: ["img/feeder1.jpg", "img/feeder2.jpg", "img/feeder3.jpg"] },
+            { id: 2, category: "Areca Plates", name: "Round Plates", price: "₹250.00", description: "Eco-friendly, biodegradable plates made from natural areca palm leaves.", images: ["img/areca1.jpg", "img/areca2.jpg", "img/areca3.jpg"] },
+            { id: 3, category: "Agarbathi", name: "Pancha Kavyam", price: "₹120.00", description: "100 Grms High Quality Premium Agarbathi Base Cow Dung Vedic Traditional Method. Burning time: 70 to 90 Min.", images: ["img/agar1.jpg", "img/agar2.jpg", "img/agar3.jpg"] },
+            { id: 4, category: "Pal Sambrani", name: "Pal Sambrani", price: "₹90.00", description: "Traditional resin-based incense offering a rich, aromatic fragrance ideal for daily rituals.", images: ["img/pal1.jpg", "img/pal2.jpg", "img/pal3.jpg"] },
+            { id: 5, category: "Dhoop Sticks", name: "Sandal", price: "₹80.00", description: "Smooth sandalwood-scented dhoop sticks. Burning time: approximately 20 minutes.", images: ["img/dhoop1.jpg", "img/dhoop2.jpg", "img/dhoop3.jpg"] },
+            { id: 6, category: "Cup Sambrani", name: "Panchakavyam", price: "₹140.00", description: "Ready-to-use cup sambrani pre-filled with a traditional aromatic blend.", images: ["img/cup1.jpg", "img/cup2.jpg", "img/cup3.jpg"] },
+            { id: 7, category: "Vilakku (Cow Dung)", name: "Panchakavyam Vilakku", price: "₹60.00", description: "Traditional ritual lamp crafted for ceremonial lighting.", images: ["img/vilakku1.jpg", "img/vilakku2.jpg", "img/vilakku3.jpg"] },
+            { id: 8, category: "Agni Hotra Cake", name: "Rose", price: "₹110.00", description: "Agni hotra cake infused with a delicate rose fragrance.", images: ["img/cake1.jpg", "img/cake2.jpg", "img/cake3.jpg"] },
+            { id: 9, category: "Cone Sambrani", name: "Javadhu", price: "₹95.00", description: "Cone sambrani infused with traditional Javadhu fragrance.", images: ["img/cone1.jpg", "img/cone2.jpg", "img/cone3.jpg"] },
+            { id: 10, category: "Charcoal", name: "Charcoal Tablets", price: "₹100.00", description: "High-quality burning charcoal tablets. Burning time is 40 to 60 minutes.", images: ["img/charcoal1.jpg", "img/charcoal2.jpg", "img/charcoal3.jpg"] },
+            { id: 11, category: "Computer Sambrani", name: "Sandal", price: "₹85.00", description: "Instant-burning computer sambrani tablets.", images: ["img/comp1.jpg", "img/comp2.jpg", "img/comp3.jpg"] },
+            { id: 12, category: "Bath Salt", name: "Bath Salt", price: "₹200.00", description: "Premium bath salt formulated to dissolve in warm water.", images: ["img/bath1.jpg", "img/bath2.jpg", "img/bath3.jpg"] },
+            { id: 13, category: "Perfume", name: "Javadhu Roll-on", price: "₹180.00", description: "Portable roll-on perfume featuring a rich Javadhu fragrance.", images: ["img/perf1.jpg", "img/perf2.jpg", "img/perf3.jpg"] },
+            { id: 14, category: "Room Spray", name: "Luxe Aura", price: "₹220.00", description: "Premium room spray designed to instantly refresh your space.", images: ["img/spray1.jpg", "img/spray2.jpg", "img/spray3.jpg"] },
+            { id: 15, category: "Glass Cleaner", name: "Spray", price: "₹130.00", description: "Convenient spray bottle cleaner for glass surfaces.", images: ["img/glass1.jpg", "img/glass2.jpg", "img/glass3.jpg"] },
+            { id: 16, category: "Sanitary Napkins", name: "290 mm / 330 mm", price: "₹150.00", description: "Reliable personal care napkins with 7-layer surgical cotton and aloe vera.", images: ["img/pad1.jpg", "img/pad2.jpg", "img/pad3.jpg"] }
+        ];
+
+        const currentImageIndexes = {};
+        catalogProducts.forEach(p => currentImageIndexes[p.id] = 0);
+
+        function toggleShop() {
+            const grid = document.getElementById('product-grid');
+            grid.style.display = 'grid';
+            document.getElementById('shop-now-btn').style.display = 'none';
+            renderProducts();
+        }
+
+        function renderProducts() {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = ''; 
+
+            catalogProducts.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'catalog-card';
+                card.innerHTML = `
+                    <div class="catalog-carousel">
+                        <button class="catalog-carousel-btn left" onclick="changeImage(${product.id}, -1)">&#10094;</button>
+                        <img id="cat-img-${product.id}" src="${product.images[0]}" alt="${product.name}">
+                        <button class="catalog-carousel-btn right" onclick="changeImage(${product.id}, 1)">&#10095;</button>
+                    </div>
+                    <div class="catalog-info">
+                        <h3 class="catalog-title">${product.name}</h3>
+                        <div class="catalog-price">${product.price}</div>
+                        <p class="catalog-desc">${product.description}</p>
+                    </div>
+                    <button class="catalog-buy-btn" onclick="redirectToWhatsApp(${product.id})">
+                        <i class="fab fa-whatsapp"></i> Buy Now
+                    </button>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function changeImage(productId, direction) {
+            const product = catalogProducts.find(p => p.id === productId);
+            let currentIndex = currentImageIndexes[productId];
+            
+            currentIndex += direction;
+            if (currentIndex >= product.images.length) currentIndex = 0;
+            if (currentIndex < 0) currentIndex = product.images.length - 1;
+            
+            currentImageIndexes[productId] = currentIndex;
+            document.getElementById(`cat-img-${productId}`).src = product.images[currentIndex];
+        }
+
+        function redirectToWhatsApp(productId) {
+            const product = catalogProducts.find(p => p.id === productId);
+            const message = `Hello Thanmathi Exports! I am interested in buying the following product:\n\n*Category:* ${product.category}\n*Item:* ${product.name}\n*Price:* ${product.price}\n*Details:* ${product.description}\n\nCould you please provide more information on availability?`;
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
+        }
+    </script>
+    <!-- =========================================== -->
+
+</body>
+</html>
 </body>
 </html>
