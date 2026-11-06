@@ -806,9 +806,11 @@ html, body {
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
+        /* Fixed High-Contrast Buttons & New Shop Button */
         .btn-gold {
-            background: var(--gold-gradient);
-            color: var(--obsidian);
+            background: linear-gradient(135deg, #d4af37 0%, #f3e5ab 100%);
+            color: #000000 !important; /* Forces text to be dark against gold */
+            font-weight: 700;
         }
 
         .btn-gold::before {
@@ -832,16 +834,37 @@ html, body {
         }
 
         .btn-outline {
-            background: transparent;
-            color: var(--champagne);
-            border: 1px solid rgba(212, 175, 55, 0.5);
+            background: rgba(0, 0, 0, 0.7); /* Dark background for contrast */
+            color: #ffffff !important; /* Forces text to be pure white */
+            border: 2px solid #d4af37;
         }
 
         .btn-outline:hover {
-            background: var(--gold-primary);
-            color: var(--obsidian);
-            border-color: var(--gold-primary);
+            background: #d4af37;
+            color: #000000 !important;
+            border-color: #d4af37;
             transform: translateY(-3px);
+        }
+
+        .btn-shop-main {
+            background: #25D366; /* Bright WhatsApp Green */
+            color: #ffffff !important;
+            font-size: 1.1rem;
+            padding: 20px 50px;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+        
+        .btn-shop-main:hover {
+            background: #128C7E;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgba(18, 140, 126, 0.4);
         }
 
         /* Hero Scroll Indicator */
