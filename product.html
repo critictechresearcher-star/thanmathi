@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details | Thanmathi Exports</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;600&family=Cinzel:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { margin: 0; font-family: 'Montserrat', sans-serif; background: #0a0a0a; color: #fff; }
+        .navbar { padding: 20px 5%; background: #111; display: flex; justify-content: space-between; border-bottom: 1px solid #333; }
+        .navbar a { color: #d4af37; text-decoration: none; font-weight: bold; font-size: 1.2rem; font-family: 'Cinzel', serif; }
+        .nav-links a { color: #fff; margin-left: 20px; font-size: 0.9rem; font-family: 'Montserrat', sans-serif; }
+        
+        .product-container { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; max-width: 1200px; margin: 60px auto; padding: 0 5%; }
+        
+        /* Left Column: Images */
+        .image-gallery { display: flex; flex-direction: column; gap: 15px; }
+        .main-image { width: 100%; height: 500px; object-fit: cover; border-radius: 8px; border: 1px solid #333; }
+        .thumbnail-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+        .thumbnail { width: 100%; height: 100px; object-fit: cover; border-radius: 4px; cursor: pointer; border: 2px solid transparent; opacity: 0.6; transition: 0.3s; }
+        .thumbnail:hover, .thumbnail.active { border-color: #d4af37; opacity: 1; }
+
+        /* Right Column: Details */
+        .product-details { display: flex; flex-direction: column; }
+        .breadcrumbs { color: #888; font-size: 0.9rem; margin-bottom: 10px; }
+        .breadcrumbs a { color: #888; text-decoration: none; }
+        .breadcrumbs a:hover { color: #d4af37; }
+        .product-title { font-family: 'Cinzel', serif; font-size: 2.5rem; margin: 0 0 15px; }
+        .product-price { font-size: 2rem; color: #d4af37; font-weight: 600; margin-bottom: 30px; }
+        .product-description { font-size: 1.1rem; line-height: 1.8; color: #ccc; margin-bottom: 40px; padding-top: 20px; border-top: 1px solid #333; }
+        
+        .btn-whatsapp { background: #25D366; color: white; border: none; padding: 18px; font-size: 1.2rem; font-weight: bold; font-family: 'Montserrat', sans-serif; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.3s; text-decoration: none; }
+        .btn-whatsapp:hover { background: #128C7E; transform: translateY(-2px); }
+
+        /* Related Products */
+        .related-section { max-width: 1200px; margin: 80px auto; padding: 0 5%; border-top: 1px solid #333; padding-top: 60px; }
+        .related-title { font-family: 'Cinzel', serif; font-size: 2rem; text-align: center; margin-bottom: 40px; }
+        .related-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+        .related-card { background: #1a1a1a; border: 1px solid #333; border-radius: 8px; text-decoration: none; color: white; overflow: hidden; transition: 0.3s; }
+        .related-card:hover { border-color: #d4af37; }
+        .related-card img { width: 100%; height: 200px; object-fit: cover; }
+        .related-card div { padding: 15px; text-align: center; font-weight: 500; }
+
+        @media (max-width: 768px) { .product-container { grid-template-columns: 1fr; gap: 30px; } .main-image { height: 350px; } }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html">THANMATHI</a>
+        <div class="nav-links"><a href="index.html">Home</a><a href="shop.html">Shop</a></div>
+    </nav>
+
+    <div class="product-container" id="product-content">
+        <!-- Javascript will inject layout here -->
+    </div>
+
+    <div class="related-section">
+        <h2 class="related-title">Related Products</h2>
+        <div class="related-grid" id="related-grid"></div>
+    </div>
+
+    <script src="products.js"></script>
+    <script>
+        // Get ID from URL (e.g., product.html?id=3)
+        const params = new URLSearchParams(window.location.search);
+        const productId = parseInt(params.get('id'));
+        const product = catalogProducts.find(p => p.id === productId);
+
+        if (!product) {
+            document.getElementById('product-content').innerHTML = `<h2>Product not found. <a href="shop.html" style="color:#d4af37;">Return to Shop</a></h2>`;
+        } else {
+            // Build Main Layout
+            const content = document.getElementById('product-content');
+            
+            // Ensure we have exactly 4 images to display, fallback to main if missing
+            const img1 = product.images[0] || 'Imges/2nd.png';
+            const img2 = product.images[1] || img1;
+            const img3 = product.images[2] || img1;
+            const img4 = product.images[3] || img1;
+
+            const whatsappMessage = encodeURIComponent(`Hello Thanmathi Exports! I am interested in buying:\n\n*Item:* ${product.name}\n*Price:* ${product.price}\n\nCould you please provide more info?`);
+            
+            content.innerHTML = `
+                <div class="image-gallery">
+                    <img src="${img1}" id="main-img" class="main-image" onerror="this.src='Imges/2nd.png'">
+                    <div class="thumbnail-row">
+                        <img src="${img1}" class="thumbnail active" onclick="changeImg(this, '${img1}')" onerror="this.src='Imges/2nd.png'">
+                        <img src="${img2}" class="thumbnail" onclick="changeImg(this, '${img2}')" onerror="this.src='Imges/2nd.png'">
+                        <img src="${img3}" class="thumbnail" onclick="changeImg(this, '${img3}')" onerror="this.src='Imges/2nd.png'">
+                        <img src="${img4}" class="thumbnail" onclick="changeImg(this, '${img4}')" onerror="this.src='Imges/2nd.png'">
+                    </div>
+                </div>
+                <div class="product-details">
+                    <div class="breadcrumbs"><a href="shop.html">Shop</a> > ${product.category}</div>
+                    <h1 class="product-title">${product.name}</h1>
+                    <div class="product-price">${product.price}</div>
+                    <p class="product-description">${product.description}</p>
+                    <a href="https://wa.me/${whatsappNumber}?text=${whatsappMessage}" target="_blank" class="btn-whatsapp">
+                        <i class="fab fa-whatsapp"></i> Buy Now via WhatsApp
+                    </a>
+                </div>
+            `;
+
+            // Build Related Products (Same category, excluding current product, max 4)
+            const related = catalogProducts.filter(p => p.category === product.category && p.id !== product.id).slice(0, 4);
+            const relatedGrid = document.getElementById('related-grid');
+            
+            if (related.length === 0) {
+                document.querySelector('.related-section').style.display = 'none';
+            } else {
+                related.forEach(p => {
+                    relatedGrid.innerHTML += `
+                        <a href="product.html?id=${p.id}" class="related-card">
+                            <img src="${p.images[0]}" onerror="this.src='Imges/2nd.png'">
+                            <div>${p.name}</div>
+                        </a>
+                    `;
+                });
+            }
+        }
+
+        // Image Swapping Logic
+        function changeImg(thumbElement, src) {
+            document.getElementById('main-img').src = src;
+            document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+            thumbElement.classList.add('active');
+        }
+    </script>
+</body>
+</html>
